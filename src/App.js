@@ -4,23 +4,23 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
+import About from "./Pages/About/About";
 import Home from "./Pages/Home/Home/Home";
 
 function App() {
   return (
     <div className="App">
-          <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="users" element={<Users />}>
-        </Route>
-          {/* <Route path="me" element={<OwnUserProfile />} />
-          <Route path=":id" element={<UserProfile />} /> */}
-  
-      </Routes>
-    </BrowserRouter>
-       
-    
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />}>
+          </Route>
+        
+
+        </Routes>
+      </BrowserRouter>
+
+
     </div>
   );
 }
