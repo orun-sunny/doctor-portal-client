@@ -1,7 +1,7 @@
 import React from 'react';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 import SingleService from '../SingleService/SingleService';
@@ -33,6 +33,16 @@ const Services = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Container>
+                
+            <Typography variant="h6" component="div">
+                      OUR Services
+
+                    </Typography>
+
+                    <Typography sx={{color:'success.main', m:5}} variant="h4" component="div">
+                     Here we ARe
+
+                    </Typography>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {
                         services.map( Service => <SingleService
