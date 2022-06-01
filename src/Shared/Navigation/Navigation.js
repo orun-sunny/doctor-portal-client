@@ -26,7 +26,7 @@ const Navigation = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
-          <Link to="/appointment"> <Button color="inherit">Appointment</Button></Link>
+          <Link to="/appointment">  <Button color="inherit" text-decoration="none">Appointment</Button></Link>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
