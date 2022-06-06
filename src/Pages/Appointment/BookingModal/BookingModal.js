@@ -17,6 +17,9 @@ const style = {
 
 const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
     const { name, time } = booking;
+    // const {user} = useAuth();
+
+    // const [bookingInfo, setBookinInfo] = useState({})
     const handleBookSubmit = e => {
         alert("submitting");
         handleBookingClose();
@@ -61,12 +64,13 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                             sx={{ width: '100%' }}
                             //   label="Size"
                             id="outlined-size-small"
-                            defaultValue='your nam'
+                            name="patientName"
+                            // defaultValue={user.displayName}
                             size="small"
                         />
 
                         <TextField
-                        disabled
+                            disabled
 
                             sx={{ width: '100%' }}
                             //   label="Size"
@@ -79,7 +83,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                             sx={{ width: '100%' }}
                             //   label="Size"
                             id="outlined-size-small"
-                            defaultValue='your email'
+                            defaultValue='email'
                             size="small"
                         />
 
@@ -91,7 +95,15 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                             defaultValue="phone number"
                             size="small"
                         />
-                        <Button type= 'submit'  variant="contained">Submit</Button>
+                        <TextField
+
+                            sx={{ width: '90%' }}
+                            //   label="Size"
+                            id="outlined-size-small"
+                            defaultValue={date.toDateString}
+                            size="small"
+                        />
+                        <Button type='submit' variant="contained">Submit</Button>
 
                     </form>
 
