@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
+import AuthProvider from "./context/AuthProvider/AuthProvider";
 import About from "./Pages/About/About";
 import Appointment from "./Pages/Appointment/Appointment/Appointment";
 
@@ -14,6 +15,7 @@ import Registration from "./Pages/Login/Registration/Registration";
 function App() {
   return (
     <div className="App">
+      <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -28,6 +30,8 @@ function App() {
 
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
+      
 
 
     </div>

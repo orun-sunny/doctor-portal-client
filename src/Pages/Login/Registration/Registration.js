@@ -19,62 +19,68 @@ const Registration = () => {
 
 
     const handleLoginSubmit = e => {
-    if (loginData.password !== loginData.password2){
-        alert('your password not matched')
-    }
+        if (loginData.password !== loginData.password2) {
+            alert('your password not matched')
+        }
         e.preventDefault();
     }
     return (
         <Container>
-        <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+            <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
 
-                <form onSubmit={handleLoginSubmit}>
-                    <Typography variant="body1" gutterBottom>login
-                    </Typography>
-                    <TextField
-                        sx={{ width: '75%', m: 1 }}
-                        id="standard-basic"
-                        label="Your email"
-                        name='email'
-                        onChange={handleOnChange}
-                        variant="standard" />
-                    <TextField
-                        sx={{ width: '75%', m: 1 }}
-                        id="standard-password-input"
-                        label="Password"
-                        type="password"
-                        name='password'
-                        onChange={handleOnChange}
-                        autoComplete="password"
-                        variant="standard" />
+                    <form onSubmit={handleLoginSubmit}>
+                        <Typography variant="body1" gutterBottom>login
+                        </Typography>
                         <TextField
-                        sx={{ width: '75%', m: 1 }}
-                        id="standard-password-input"
-                        label="Re type Password"
-                        type="password"
-                        name='password2'
-                        onChange={handleOnChange}
-                        autoComplete="password"
-                        variant="standard" />
-                    <NavLink to="/register">
-                        <Button variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Already registered ? plzlogin
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
+                            label="Your email"
+                            name='email'
+                            onChange={handleOnChange}
+                            variant="standard" />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-password-input"
+                            label="Password"
+                            type="password"
+                            name='password'
+                            onChange={handleOnChange}
+                            autoComplete="password"
+                            variant="standard" />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-password-input"
+                            label="Re type Password"
+                            type="password"
+                            name='password2'
+                            onChange={handleOnChange}
+                            autoComplete="password"
+                            variant="standard" />
+                        <NavLink to="/register">
+                            <Button
+                                style={{ textDecoration: 'none' }}
+
+                                variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Already registered ? plzlogin
+
+                            </Button>
+                        </NavLink>                        <Button
+                            style={{ textDecoration: 'none' }}
+
+                            variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Log in
 
                         </Button>
-                    </NavLink>                        <Button variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Log in
+                    </form>
 
-                    </Button>
-                </form>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <img style={{ width: '100%' }} src={login} alt="" />
+
+                </Grid>
+
 
             </Grid>
-            <Grid item xs={12} md={6}>
-                <img style={{ width: '100%' }} src={login} alt="" />
-
-            </Grid>
-
-
-        </Grid>
-    </Container>
+        </Container>
     );
 };
 

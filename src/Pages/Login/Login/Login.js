@@ -46,10 +46,13 @@ const Login = () => {
                             autoComplete="password"
                             variant="standard" />
                         <NavLink to="/register">
-                            <Button variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> New user? plz register
+                      
+                            <Button style={{textDecoration: 'none'}} variant="contained" sx={{ width: '75%', m: 1 ,textDecoration: 'none'}} type="submit"> New user? plz register
 
                             </Button>
-                        </NavLink>                        <Button variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Log in
+                        </NavLink>   
+                                           
+                        <Button style={{textDecoration: 'none'}} variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Log in
 
                         </Button>
                     </form>
