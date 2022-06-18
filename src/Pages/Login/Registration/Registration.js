@@ -1,18 +1,20 @@
 
-import { Button, Grid, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState } from 'react';
 import login from '../../../images/login.png'
 import TextField from '@mui/material/TextField';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Registration = () => {
-    const [loginData, setLoginData] = useState({})
+    const [loginData, setLoginData] = useState({});
+    const {user,registerUser,isLoading,authError} =useAuth();
 
-    const handleOnChange = e => {
+    const handleOnBlur = e => {
         const field = e.target.name;
         const value = e.target.value;
-        const newLoginData = [...loginData];
+        const newLoginData = {...loginData}; // ade
         newLoginData[field] = value;
         setLoginData(newLoginData);
     }
@@ -21,7 +23,9 @@ const Registration = () => {
     const handleLoginSubmit = e => {
         if (loginData.password !== loginData.password2) {
             alert('your password not matched')
+            return
         }
+        registerUser(loginData.email,loginData.password,loginData.name,Navigate);
         e.preventDefault();
     }
     return (
@@ -29,23 +33,31 @@ const Registration = () => {
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
 
-                    <form onSubmit={handleLoginSubmit}>
-                        <Typography variant="body1" gutterBottom>login
+                    { !isLoading && <form onSubmit={handleLoginSubmit}>
+                        <Typography variant="body1 contained" sx={{ width: '75%', m: 5 }}   gutterBottom>Registration Page
                         </Typography>
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
+                            label="Your name"
+                            name='your name'
+                            onBlur={handleOnBlur}
+                            variant="standard" />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
                             label="Your email"
                             name='email'
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             variant="standard" />
+                     
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-password-input"
                             label="Password"
                             type="password"
                             name='password'
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             autoComplete="password"
                             variant="standard" />
                         <TextField
@@ -54,10 +66,10 @@ const Registration = () => {
                             label="Re type Password"
                             type="password"
                             name='password2'
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             autoComplete="password"
                             variant="standard" />
-                        <NavLink to="/register">
+                        <NavLink to="/login">
                             <Button
                                 style={{ textDecoration: 'none' }}
 
@@ -67,10 +79,15 @@ const Registration = () => {
                         </NavLink>                        <Button
                             style={{ textDecoration: 'none' }}
 
-                            variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Log in
+                            variant="contained" sx={{ width: '75%', m: 1 }} type="submit"> Register
 
                         </Button>
-                    </form>
+                    </form>}
+                    {isLoading &&  <CircularProgress />}
+                    {user?.email && <Alert severity="success">This is a success alert — check it out!</Alert> }
+                   {authError &&  <Alert severity="error">{authError}
+    
+      </Alert> }
 
                 </Grid>
                 <Grid item xs={12} md={6}>

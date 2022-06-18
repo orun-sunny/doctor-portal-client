@@ -1,29 +1,52 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../Pages/Login/Firebase/firebase.init"
-import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { Password } from "@mui/icons-material";
+import { getAuth, createUserWithEmailAndPassword,GoogleAuthProvider,updateProfile,signInWithPopup, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+// import { Password } from "@mui/icons-material";
 
 
 initializeFirebase();
 const useFirebase = () => {
     const [user, setUser] = useState({});
+    const [isLoading,setIsLoading] = useState(true);
+    const [authError,setAuthError] = useState(' ')
 
     const auth = getAuth();
 
+    const googleProvider = new GoogleAuthProvider();
 
-    const registerUser = (auth, email, password) => {
-        createUserWithEmailAndPassword()
+
+    const registerUser = ( email, password,name,navigate) => {
+        setIsLoading(true);
+        createUserWithEmailAndPassword( auth, email, password)
             .then((userCredential) => {
+                setAuthError( ' ');
+                const newUser = {email,displayName: name};
+                setUser(newUser);
+
+                updateProfile(auth.currentUser, {
+                    displayName: name
+                  }).then(() => {
+                    // Profile updated!
+                    // ...
+                  }).catch((error) => {
+                    // An error occurred
+                    // ...
+                  });
+
+
+                navigate.replace('/home')
                 // Signed in 
-                const user = userCredential.user;
+                // const user = userCredential.user;
                 // ...
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+                // const errorCode = error.code;
+                setAuthError ( error.message);
 
                 // ..
-            });
+            })
+            .finally(() => setIsLoading(false));
+            // 
 
 
     }
@@ -32,13 +55,32 @@ const useFirebase = () => {
         signInWithEmailAndPassword(auth,email,password)
         .then((userCredential)=>{
 
-            const user = userCredential.user;
+            setAuthError( ' ');
         })
 
         .catch((error)=>{
-            const errorCode= error.code;
-            const errorMessage = error.message;
-        });
+            setAuthError ( error.message);
+        })
+        .finally(() => setIsLoading(false))
+        ;
+
+    }
+
+    const signINWithGoogle = (location,history) =>{
+        setIsLoading(true);
+        signInWithPopup(auth, googleProvider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+   
+    const user = result.user;
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    setAuthError(error.message);
+    // ...
+  })
+  .finally(() => setIsLoading(false));
+
 
     }
 
@@ -48,7 +90,7 @@ const useFirebase = () => {
       const unsubscribe=  onAuthStateChanged(auth, (user) => {
             if (user) {
             
-              const uid = user.uid;
+            //   const uid = user.uid;
               setUser(user)
               // ...
             } else {
@@ -56,6 +98,7 @@ const useFirebase = () => {
               // ...
               setUser({})
             }
+            setIsLoading(false);
           });
           return() => unsubscribe;
 
@@ -67,14 +110,18 @@ const useFirebase = () => {
             // Sign-out successful.
         }).catch((error) => {
             // An error happened.
-        });
+        })
+        .finally(() => setIsLoading(false));
 
     }
     return {
         user,
+        isLoading,
+        authError,
         registerUser,
         loginUser,
-        logout
+        logout,
+        signINWithGoogle
     }
 
 
